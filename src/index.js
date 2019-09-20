@@ -5,9 +5,13 @@ import * as serviceWorker from './serviceWorker';
 import {Component} from 'react'
 
 class Tittle extends Component{
+    //事件监听
+    handleClickOnTittle(word){
+        console.log(this,word);
+    }
     render(){
         return (
-            <h1>React Knight</h1>
+            <h1 onClick = {this.handleClickOnTittle.bind(this,'Hello')}>React Knight</h1>
         )
     }
 }
