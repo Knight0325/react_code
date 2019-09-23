@@ -4,6 +4,29 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import {Component} from 'react'
 
+class LikeButton extends Component{
+    constructor(){
+        super();
+        this.state = {
+            isLiked:false
+        }
+    }
+
+    handleClickOnLikeButton(){
+        this.setState({
+            isLiked:!this.state.isLiked
+        })
+    }
+
+    render(){
+        return (
+            <button onClick = {this.handleClickOnLikeButton.bind(this)}>
+                {this.state.isLiked?'取消':'点赞'}👍
+            </button>
+        )
+    }
+}
+
 class Tittle extends Component{
     //事件监听
     handleClickOnTittle(word){
@@ -56,6 +79,7 @@ class Index extends Component {
           <Header />
           <Main />
           <Footer />
+          <LikeButton/>
         </div>
       )
     }
