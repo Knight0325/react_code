@@ -4,28 +4,7 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import {Component} from 'react'
 
-class LikeButton extends Component{
-    constructor(){
-        super();
-        this.state = {
-            isLiked:false
-        }
-    }
 
-    handleClickOnLikeButton(){
-        this.setState({
-            isLiked:!this.state.isLiked
-        })
-    }
-
-    render(){
-        return (
-            <button onClick = {this.handleClickOnLikeButton.bind(this)}>
-                {this.state.isLiked?'取消':'点赞'}👍
-            </button>
-        )
-    }
-}
 
 class Tittle extends Component{
     //事件监听
@@ -71,6 +50,44 @@ class Footer extends Component {
         )
     }
 }
+//20190923
+class LikeButton extends Component{
+    static defaultProps = {
+        likedText:'取消',
+        unLikedText:'点赞'
+    }
+    constructor(){
+        super();
+        this.state = {
+            isLiked:false
+        }
+    }
+
+    handleClickOnLikeButton(){
+        //props传进来的值都是只读的,不可改变,所以点击时会报错
+        //this.props.likedText = '取消'
+        this.setState({
+            isLiked:!this.state.isLiked
+        })
+        if(this.props.onClick){
+            this.props.onClick()
+        }
+    }
+
+    render(){
+        // const wordings = this.props.wordings ||{
+        //     likedText : '取消',
+        //     unLikedText:'点赞'
+        // }
+        //const likedText = this.props.likedText || '取消';
+        //const unLikedText = this.props.unLikedText || '点赞';
+        return (
+            <button onClick = {this.handleClickOnLikeButton.bind(this)}>
+                {this.state.isLiked?this.props.likedText:this.props.unLikedText}👍
+            </button>
+        )
+    }
+}
 
 class Index extends Component {
     render () {
@@ -79,7 +96,10 @@ class Index extends Component {
           <Header />
           <Main />
           <Footer />
-          <LikeButton/>
+          <LikeButton wordings = {{likedText : '已赞' ,unLikedText : '赞'}}
+                    onClick ={() => {
+                        console.log('Clike on the likeButton!');
+                    }}   />
         </div>
       )
     }
