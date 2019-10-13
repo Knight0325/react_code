@@ -104,8 +104,46 @@ class Index extends Component {
       )
     }
 }
+//20191013 家中
+const users = [
+    {id:'20191013-0',username:'Jerry',age:21,gender:'male'},
+    {id:'20191013-1',username:'Tomy',age:22,gender:'male'},
+    {id:'20191013-2',username:'Lily',age:19,gender:'female'},
+    {id:'20191013-3',username:'Lucy',age:20,gender:'female'},
+]
 
-ReactDOM.render(<Index />, document.getElementById('root'));
+class User extends Component{
+    render(){
+        const {user} = this.props
+        return (
+            <div>
+                <div>UserName:{user.username}</div>
+                <div>Age:{user.age}</div>
+                <div>Gender:{user.gender}</div>
+                <hr />
+            </div>
+        )
+    }
+}
+
+class Index20191013 extends Component{
+    render(){
+        return (
+            
+            <div>
+                {
+                    users.map(
+                        //这里不能加{}
+                        (user) => <User key={user.id} user={user}/>
+                    )
+                }
+                <Index />
+            </div>
+        )
+    }
+}
+ReactDOM.render(
+<Index20191013 />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
